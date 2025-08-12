@@ -57,6 +57,20 @@
         .contact:hover {
             background: #005fa3;
         }
+        #sendWebhookBtn {
+            margin-top: 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        #sendWebhookBtn:hover {
+            background: #1e7e34;
+        }
         footer {
             margin-top: 35px;
             font-size: 0.85rem;
@@ -67,7 +81,6 @@
 <body>
     <div class="container">
         <header>
-            <!-- ضع رابط صورة شعارك هنا لو تريد عرضه -->
             <!-- <img src="logo.png" alt="شعار صنعاء كاش" /> -->
             <h1>صنعاء كاش</h1>
             <p class="desc">خدمات الدفع والشحن الفوري في اليمن منذ 2021</p>
@@ -79,6 +92,10 @@
                 <li>بطائق ألعاب (Google Play، iTunes، Free Fire...)</li>
                 <li>تحويل رصيد</li>
             </ul>
+
+            <!-- زر إرسال بيانات إلى Webhook -->
+            <button id="sendWebhookBtn">اختبار إرسال بيانات Webhook</button>
+
             <a class="contact" href="https://wa.me/967783474000" target="_blank" rel="noopener">
                 تواصل معنا عبر واتساب: +967783474000
             </a>
@@ -87,5 +104,29 @@
             &copy; 2025 صنعاء كاش. جميع الحقوق محفوظة.
         </footer>
     </div>
+
+    <script>
+        document.getElementById('sendWebhookBtn').addEventListener('click', () => {
+            fetch('https://your-webhook-url.com/webhook', {  // غيّر هذا إلى رابط Webhook الحقيقي
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'تم إرسال اختبار من موقع صنعاء كاش',
+                    timestamp: new Date().toISOString()
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert('تم إرسال البيانات بنجاح!');
+                console.log('رد السيرفر:', data);
+            })
+            .catch(error => {
+                alert('حدث خطأ أثناء الإرسال.');
+                console.error('خطأ:', error);
+            });
+        });
+    </script>
 </body>
 </html>
